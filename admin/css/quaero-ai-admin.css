@@ -1,0 +1,189 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+ .qai-tabset > input[type="radio"] {
+    position: absolute;
+    left: -200vw;
+  }
+  
+  .qai-tabset .tab-panel {
+    display: none;
+  }
+  
+  .qai-tabset
+    > input:first-child:checked
+    ~ .qai-tab-panels
+    > .tab-panel:first-child,
+  .qai-tabset
+    > input:nth-child(3):checked
+    ~ .qai-tab-panels
+    > .tab-panel:nth-child(2),
+  .qai-tabset
+    > input:nth-child(5):checked
+    ~ .qai-tab-panels
+    > .tab-panel:nth-child(3),
+  .qai-tabset
+    > input:nth-child(7):checked
+    ~ .qai-tab-panels
+    > .tab-panel:nth-child(4),
+  .qai-tabset
+    > input:nth-child(9):checked
+    ~ .qai-tab-panels
+    > .tab-panel:nth-child(5),
+  .qai-tabset
+    > input:nth-child(11):checked
+    ~ .qai-tab-panels
+    > .tab-panel:nth-child(6) {
+    display: block;
+  }
+  
+  .qai-tabset > label {
+    position: relative;
+    display: inline-block;
+    padding: 15px 20px;
+    border: 1px solid transparent;
+    border-bottom: 0;
+    cursor: pointer;
+    font-weight: 600;
+    background: #cccccc;
+    min-width: 66px;
+    color: #000;
+    
+  }
+  .qai-tabset label .title {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    justify-content: center;
+  }
+  .qai-tabset > label svg {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .qai-tabset > label:hover,
+  .qai-tabset > input:focus + label,
+  .qai-tabset > input:checked + label {
+    color: #2271b1;
+  }
+  
+  .qai-tabset > label:hover::after,
+  .qai-tabset > input:focus + label::after,
+  .qai-tabset > input:checked + label::after {
+    background: #2271b1;
+  }
+  
+  .qai-tabset > input:checked + label {
+    border-color: #e2e4e7;
+    border-bottom: 1px solid #ffffff;
+    margin-bottom: -1px;
+    background: #ffffff;
+  }
+
+  .qai-tabset .qai-tab-panels {
+    border: 1px solid #e2e4e7;
+    border-top: none;
+    -webkit-animation-name: content;
+    animation-name: content;
+    -webkit-animation-direction: normal;
+    animation-direction: normal;
+    -webkit-animation-duration: 0.3s;
+    animation-duration: 0.3s;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+    -webkit-animation-iteration-count: 1;
+    animation-iteration-count: 1;
+    line-height: 1.4;
+  }
+  
+  .qai-tabset .tab-panel {
+    border-top: 1px solid #e2e4e7;
+    padding: 20px;
+    background: #ffffff;
+  }
+
+  .qai-tabset {
+    max-width: 65em;
+    margin-top: 20px;
+  }
+
+  .qai-tabset #progress .loading {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 10px;
+    background: #f1f1f1;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, .2);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .qai-tabset #progress .loading:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 0;
+    height: 100%;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+    animation: load 5s infinite;
+  }
+
+  .qai-tabset .submit{
+    padding-bottom: 0;
+  }
+
+  .qai-tabset .tab-panel h2{
+    margin-top: 0;
+  }
+
+  .qai-progress-container progress {
+    opacity: 0;
+  }  
+  
+  .qai-progress-container {
+    position: relative;
+    display: inline-block;
+    background: #eee;
+    height: 10px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  .qai-progress-done {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background: #14532D;
+  }  
+  .qai-progress-label {
+    margin: 0;
+    position: relative;
+  }
+  .qai-code {
+    background: #eee;
+    padding: 2px 5px;
+    border-radius: 2px;
+    border: 1px solid #ccc;
+   }
+  
+  .qai-progress-percentage {
+    content: '0%';
+    position: absolute;
+    top:0;
+    right: 0;
+    animation: 1s ease-in forwards;
+  }
+  
+  @media screen and (max-width: 767px) {
+    .qai-tabset > label {
+      display: block;
+    }
+  }
+  
