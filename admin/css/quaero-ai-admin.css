@@ -3,86 +3,7 @@
  * included in this file.
  */
 
- .qai-tabset > input[type="radio"] {
-    position: absolute;
-    left: -200vw;
-  }
-  
-  .qai-tabset .tab-panel {
-    display: none;
-  }
-  
-  .qai-tabset
-    > input:first-child:checked
-    ~ .qai-tab-panels
-    > .tab-panel:first-child,
-  .qai-tabset
-    > input:nth-child(3):checked
-    ~ .qai-tab-panels
-    > .tab-panel:nth-child(2),
-  .qai-tabset
-    > input:nth-child(5):checked
-    ~ .qai-tab-panels
-    > .tab-panel:nth-child(3),
-  .qai-tabset
-    > input:nth-child(7):checked
-    ~ .qai-tab-panels
-    > .tab-panel:nth-child(4),
-  .qai-tabset
-    > input:nth-child(9):checked
-    ~ .qai-tab-panels
-    > .tab-panel:nth-child(5),
-  .qai-tabset
-    > input:nth-child(11):checked
-    ~ .qai-tab-panels
-    > .tab-panel:nth-child(6) {
-    display: block;
-  }
-  
-  .qai-tabset > label {
-    position: relative;
-    display: inline-block;
-    padding: 15px 20px;
-    border: 1px solid transparent;
-    border-bottom: 0;
-    cursor: pointer;
-    font-weight: 600;
-    background: #cccccc;
-    min-width: 66px;
-    color: #000;
-    
-  }
-  .qai-tabset label .title {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    justify-content: center;
-  }
-  .qai-tabset > label svg {
-    width: 16px;
-    height: 16px;
-  }
-  
-  .qai-tabset > label:hover,
-  .qai-tabset > input:focus + label,
-  .qai-tabset > input:checked + label {
-    color: #2271b1;
-  }
-  
-  .qai-tabset > label:hover::after,
-  .qai-tabset > input:focus + label::after,
-  .qai-tabset > input:checked + label::after {
-    background: #2271b1;
-  }
-  
-  .qai-tabset > input:checked + label {
-    border-color: #e2e4e7;
-    border-bottom: 1px solid #ffffff;
-    margin-bottom: -1px;
-    background: #ffffff;
-  }
-
-  .qai-tabset .qai-tab-panels {
+  .qai-content-panel {
     border: 1px solid #e2e4e7;
     border-top: none;
     -webkit-animation-name: content;
@@ -96,16 +17,10 @@
     -webkit-animation-iteration-count: 1;
     animation-iteration-count: 1;
     line-height: 1.4;
-  }
-  
-  .qai-tabset .tab-panel {
     border-top: 1px solid #e2e4e7;
     padding: 20px;
     background: #ffffff;
-  }
-
-  .qai-tabset {
-    max-width: 65em;
+    max-width: 55em;
     margin-top: 20px;
   }
 
@@ -120,7 +35,7 @@
     overflow: hidden;
   }
 
-  .qai-tabset #progress .loading:after {
+  .qai-content-panel #progress .loading:after {
     content: '';
     position: absolute;
     left: 0;
@@ -130,19 +45,19 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, .2);
     animation: load 5s infinite;
   }
-
-  .qai-tabset .submit{
+  .qai-content-panel .submit{
     padding-bottom: 0;
+    margin: 0;
   }
-
-  .qai-tabset .tab-panel h2{
+  .qai-content-panel h2, .qai-content-panel h3{
     margin-top: 0;
   }
-
   .qai-progress-container progress {
     opacity: 0;
   }  
-  
+  .qai-sync-wrapper{
+    margin-top: 10px;
+  }
   .qai-progress-container {
     position: relative;
     display: inline-block;
@@ -180,6 +95,15 @@
     right: 0;
     animation: 1s ease-in forwards;
   }
+  .qai-setup-list{
+    margin-left: 1.1em;
+  }
+  .qai-field-label th{
+    display: none;
+  }
+  .qai-field-label td{
+    padding: 0;
+  }  
   
   @media screen and (max-width: 767px) {
     .qai-tabset > label {

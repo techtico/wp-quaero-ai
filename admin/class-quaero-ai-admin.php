@@ -146,36 +146,28 @@ class Quaero_Ai_Admin
 	{
 
 		register_setting("qai_config_settings_group", "qai_api_key");
-		register_setting("qai_config_settings_group", "qai_bot_id");
-
-
-		add_settings_section("qai_config_setting_section", "Settings", array($this, 'qai_config_section_info_callback'), "qai_config_settings_group");
+		add_settings_section("qai_config_setting_section", "", "", "qai_config_settings_group");
 
 		add_settings_field(
 			'qai_api_key', // id
-			'API Key  <br/>(copy API key from App)', // title
+			'', // title
 			array($this, 'qai_api_key_callback'), // callback
 			'qai_config_settings_group', // page
-			'qai_config_setting_section' // section
+			'qai_config_setting_section', // section
+			array('class' => 'qai-field-label') // add class
 		);
+
+		register_setting("qai_config_settings_group_2", "qai_bot_id");
+		add_settings_section("qai_config_setting_section_2", "", "", "qai_config_settings_group_2");
 
 		add_settings_field(
 			'qai_bot_id', // id
-			'Bot Id <br/>(copy Bot Id from App)', // title
+			'', // title
 			array($this, 'qai_bot_id_callback'), // callback
-			'qai_config_settings_group', // page
-			'qai_config_setting_section' // section
+			'qai_config_settings_group_2', // page
+			'qai_config_setting_section_2', // section
+			array('class' => 'qai-field-label') // add class
 		);
-	}
-
-	/**
-	 * Subtitle of the settings form.
-	 *
-	 * @since    1.0.0
-	 */
-	function qai_config_section_info_callback()
-	{
-		echo __('Connect to Quaero AI via API', 'search-chat-gpt');
 	}
 
 	/**

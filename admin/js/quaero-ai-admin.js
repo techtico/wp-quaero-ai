@@ -2,7 +2,8 @@
   "use strict";
 
   jQuery(document).ready(function () {
-    jQuery("#sync-website-links").on("click", function () {
+    jQuery("#sync-website-links").on("click", function (e) {
+      e.preventDefault();
       jQuery(".qai-progress-element").show();
       qai_update_progress_bar(0);
       var pages_limit = 10;
