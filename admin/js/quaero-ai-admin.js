@@ -5,36 +5,25 @@
     jQuery("#sync-website-links").on("click", function () {
       jQuery(".qai-progress-element").show();
       qai_update_progress_bar(0);
-      var pages_limit = 1000;
+      var pages_limit = 10;
       var data = {
         action: "get_total_posts",
       };
 
       jQuery.post(ajaxurl, data, async function (response) {
         response = parseInt(response);
-        if (response < pages_limit) {
-          // Get and push the pages based on pagination
+
+        // Get and push the pages based on pagination
+        var pages = Math.ceil(response / pages_limit);
+        var progress = 0;
+        for (let page = 1; page <= pages; page++) {
+          progress = (page / pages) * 100;
           var request_data = {
             action: "sync_website_links",
-            page: -1,
+            page: page,
           };
-          jQuery.post(ajaxurl, request_data, function (response) {
-            qai_update_progress_bar("100");
-            console.log("response" + response);
-          });
-        } else if (response > pages_limit) {
-          // Get and push the pages based on pagination
-          var pages = response / pages_limit;
-          var progress = 0;
-          for (let page = 1; page <= pages; page++) {
-            progress = (page / pages) * 100;
-            var request_data = {
-              action: "sync_website_links",
-              page: page,
-            };
 
-            await qai_exe_ajax(request_data, progress);
-          }
+          await qai_exe_ajax(request_data, progress);
         }
       });
     });

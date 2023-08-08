@@ -296,13 +296,13 @@ class Quaero_Ai_Admin
 	 */
 	public function qai_sync_website_links()
 	{
-
 		$args = array(
 			'post_type' => array('post', 'page'),
 			'orderby'    => 'ID',
 			'post_status' => 'publish',
 			'order'    => 'DESC',
-			'posts_per_page' => $_POST['page']
+			'posts_per_page' => 10,
+			'paged' => $_POST['page']
 		);
 
 		$result = new WP_Query($args);
@@ -319,8 +319,8 @@ class Quaero_Ai_Admin
 			}
 
 			if (count($api_input) > 0) {
-				$this->qai_add_pages_to_crawl($api_input);
-				echo true;
+				$result = $this->qai_add_pages_to_crawl($api_input);
+				echo $result;
 			}
 		}
 		wp_die();
@@ -328,12 +328,15 @@ class Quaero_Ai_Admin
 
 	public function qai_add_pages_to_crawl($posts)
 	{
+		$posts = wp_json_encode(array('pages' => $posts), JSON_HEX_TAG);
+		$posts = str_replace(array("\n", "\r"), '', $posts);
+
 		$auth = $this->bot_id . ':' . $this->api_key;
 		$curl = new Quaero_Ai_Curl();
 		$curl->url($this->app_link . 'insert-pages')
 			->method('post')
 			->headers(array('Authorization: ' . $auth))
-			->data(json_encode(array('pages' => $posts)))
+			->data($posts)
 			->send();
 
 		// check status code of our request
@@ -341,6 +344,8 @@ class Quaero_Ai_Admin
 			$curl->close();
 			// API Route Added
 			return true;
+		} else {
+			return $curl->info['http_code'];
 		}
 		$curl->close();
 	}

@@ -78,7 +78,7 @@ class Quaero_Ai_Public
 		<script>
 			<?php if ($api_key != '' && $bot_code != '') : ?>
 				jQuery(document).ready(function() {
-					window.SearchGPT.init({
+					window.Quaeroai.init({
 						apiKey: '<?= $api_key ?>',
 						botCode: '<?= $bot_code ?>'
 					})
