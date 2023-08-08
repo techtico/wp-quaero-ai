@@ -144,8 +144,7 @@ class Quaero_Ai_Admin
 	 */
 	public function qai_config_page_init()
 	{
-
-		register_setting("qai_config_settings_group", "qai_api_key");
+		register_setting("qai_config_settings_group", "qai_api_key", array($this, "qai_api_key_validation"));
 		add_settings_section("qai_config_setting_section", "", "", "qai_config_settings_group");
 
 		add_settings_field(
@@ -157,7 +156,7 @@ class Quaero_Ai_Admin
 			array('class' => 'qai-field-label') // add class
 		);
 
-		register_setting("qai_config_settings_group_2", "qai_bot_id");
+		register_setting("qai_config_settings_group_2", "qai_bot_id", array($this, "qai_bot_id_validation"));
 		add_settings_section("qai_config_setting_section_2", "", "", "qai_config_settings_group_2");
 
 		add_settings_field(
@@ -168,6 +167,16 @@ class Quaero_Ai_Admin
 			'qai_config_setting_section_2', // section
 			array('class' => 'qai-field-label') // add class
 		);
+
+		if (isset($_GET['settings-updated'])) {
+			$result = $this->qai_validate_app_config();
+			if ($result == false) {
+				add_settings_error('qai_settings_notice', 'invalid_qai_configuration', 'API Key or Bot ID is wrong, Please try verify and update.');
+				update_option('qai_bot_synced', '0');
+			} else {
+				update_option('qai_bot_synced', '1');
+			}
+		}
 	}
 
 	/**
@@ -194,7 +203,35 @@ class Quaero_Ai_Admin
 		);
 	}
 
+	/**
+	 * API Key field validation.
+	 *
+	 * @since    1.0.0
+	 */
+	public function qai_api_key_validation($value)
+	{
+		if (empty($value)) {
+			$value = get_option('qai_api_key'); // ignore the user's changes and use the old database value
+			add_settings_error('qai_settings_notice', 'invalid_qai_api_key', 'API key is required.');
+		}
 
+		return $value;
+	}
+
+	/**
+	 * Bot ID field validation.
+	 *
+	 * @since    1.0.0
+	 */
+	public function qai_bot_id_validation($value)
+	{
+		if (empty($value)) {
+			$value = get_option('qai_bot_id'); // ignore the user's changes and use the old database value
+			add_settings_error('qai_settings_notice', 'invalid_qai_bot_id', 'Bot ID is required.');
+		}
+
+		return $value;
+	}
 	/**
 	 * Push the content of the posts when post status changed to published.
 	 *
@@ -334,6 +371,7 @@ class Quaero_Ai_Admin
 		// check status code of our request
 		if ($curl->info['http_code'] == 200) {
 			$curl->close();
+			update_option('qai_bot_synced', '1');
 			// API Route Added
 			return true;
 		} else {
@@ -348,5 +386,31 @@ class Quaero_Ai_Admin
 		if ($post->post_type == 'post' || $post->post_type == 'page') {
 			$this->qai_add_page_to_crawl($post);
 		}
+	}
+
+	/**
+	 * Push the content of the posts when post status changed from trashed to published.
+	 *
+	 * @since    1.0.0
+	 */
+	public function qai_validate_app_config()
+	{
+		$auth = $this->bot_id . ':' . $this->api_key;
+
+		$curl = new Quaero_Ai_Curl();
+		$curl->url($this->app_link . 'theme')
+			->method('get')
+			->headers(array('Authorization: ' . $auth, "Referer: https://plugin.riteshvatwani.com/"))
+			->send();
+
+		// check status code of our request
+		if ($curl->info['http_code'] == 200) {
+			// API Route Added
+			$result = true;
+		} else {
+			$result = false;
+		}
+		$curl->close();
+		return $result;
 	}
 }

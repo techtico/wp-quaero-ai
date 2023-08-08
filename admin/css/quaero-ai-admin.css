@@ -49,15 +49,19 @@
     padding-bottom: 0;
     margin: 0;
   }
+
   .qai-content-panel h2, .qai-content-panel h3{
     margin-top: 0;
   }
+
   .qai-progress-container progress {
     opacity: 0;
   }  
+
   .qai-sync-wrapper{
     margin-top: 10px;
   }
+
   .qai-progress-container {
     position: relative;
     display: inline-block;
@@ -68,6 +72,7 @@
     margin-bottom: 10px;
     width: 100%;
   }
+
   .qai-progress-done {
     content: "";
     position: absolute;
@@ -77,10 +82,12 @@
     width: 0%;
     background: #14532D;
   }  
+
   .qai-progress-label {
     margin: 0;
     position: relative;
   }
+  
   .qai-code {
     background: #eee;
     padding: 2px 5px;
@@ -103,7 +110,10 @@
   }
   .qai-field-label td{
     padding: 0;
-  }  
+  }
+  #sync-website-links.disabled{
+    pointer-events: none;
+  } 
   
   @media screen and (max-width: 767px) {
     .qai-tabset > label {

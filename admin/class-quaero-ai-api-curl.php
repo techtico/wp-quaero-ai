@@ -100,6 +100,8 @@ class Quaero_Ai_Curl
                     curl_setopt_array($this->handler, [
                         CURLOPT_URL => $this->url,
                         CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_CUSTOMREQUEST => 'GET',
+                        CURLOPT_HTTPHEADER => $this->headers,
                     ]);
                     break;
             }

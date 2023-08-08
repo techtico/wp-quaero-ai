@@ -16,6 +16,7 @@
 <div class="wrap">
     <h2>Welcome to QuaeroAI</h2>
     <p>AI powered search engine and command line for content intensive websites.</p>
+
     <div class="qai-content-panel">
         <section id="settings">
             <h3>Setup</h3>
@@ -37,7 +38,10 @@
                         ?>
                     </li>
                     <li><?php submit_button('Save'); ?></li>
-                    <li><button id="sync-website-links" class="button button-primary">Sync all articles</button></li>
+                    <li>
+                        <?php $bot_synced = get_option("qai_bot_synced"); ?>
+                        <button id="sync-website-links" class="button button-primary <?php if (!$bot_synced) : ?>disabled<?php endif; ?>">Sync all articles</button>
+                    </li>
                 </ol>
             </form>
 
@@ -74,13 +78,4 @@
         <h3>Help</h3>
         <p>Please refer Quaeroai documentation or <a href="mailto:shneor@techtico.io">Contact us</a> for any queries.</p>
     </div>
-
-    <?php $bot_synced = get_option("qai_bot_synced");
-    if ($bot_synced && $bot_synced != 'synced') { ?>
-        <script>
-            jQuery(document).ready(function() {
-                jQuery("#sync-website-links").trigger("click");
-            });
-        </script>
-    <?php } ?>
 </div>
